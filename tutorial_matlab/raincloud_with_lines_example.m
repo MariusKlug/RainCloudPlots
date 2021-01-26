@@ -1,9 +1,9 @@
-figure(1); clf
+figure(1); clf; set(gcf, 'color', 'w')
 % generate data
 
 rng default  % for reproducibility
-m = 2;
-sd = 2;
+m = 5;
+sd = 5;
 n = 10000;
 
 data1 = sort((randn(n,1)*sd)+m);
@@ -18,21 +18,19 @@ data3 = sort(lognrnd(mu,sigma,n,1));
 data = [data1 data2 data3];
 
 [handles] = raincloud_plot(data,'color',[0.7 0 0; 0 0.7 0; 0 0 0.7],...
-    'band_width',[1 0.5 0.8],'box_dodge',1,'box_alpha',0.2,'alpha',0.5,'plot_width',0.3,...
-    'dot_alpha',0.01);
+    'band_width',[0.5],'box_dodge',1,'box_alpha',0.2,'alpha',0.5,'plot_width',0.3,...
+    'dot_alpha',0.01,'plot_means',1);
 
 hold on
-
-data = data+50;
-[handles] = raincloud_plot(data,'color',[0.7 0 0; 0 0.7 0; 0 0 0.7],...
-    'band_width',[1 0.5 0.8],'box_dodge',1,'box_alpha',0.2,'alpha',0.5,'plot_width',0.3,...
-    'dot_alpha',0.01,'dot_random_distribution','uniform');
 
 ax=gca;
 yticks([1 2 3])
 ax.YTickLabel ={'normal','bimodal','lognormal'};
 title('Raincloud plot for different distributions')
 set(gca,'FontSize',16)
+
+xlim([-20 30])
+axis square
 
 %%
 figure(2); clf
